@@ -6,4 +6,4 @@
 
 ## Név Elmágra:
 
-`projekt_Elmág_Farkas_Gillich_Wang_1_Invent_Yourself.pdf`
+`projekt_Elmag_Farkas_Gillich_Wang_1_Invent_Yourself.pdf`

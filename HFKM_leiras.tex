@@ -24,10 +24,10 @@
 \usepackage{titling}
 \setlength{\droptitle}{-2cm}
 % Ez meg átváltja a fontot
-%\usepackage{newtxtext}
+\usepackage{newtxtext}
 
 \title{ Találd fel magad! } 
-\author{\textit{Farkas Zsombor, Gillich Ádám, Győrfi Szabolcs, Milbik Csongor László}}
+\author{\textit{Farkas Zsombor, Gillich Ádám, Győrfi Szabolcs, Milbik Csongor László + Wenni Wang }}
 \date{\today} 
 
 %-------------------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ szintén megismételhető a kísérlet.}\\
 	felülete, $T$ a vezeték hőmérséklete, $T_k$ a környezet hőmérséklete. Továbbá a hősugárzás sem lesz 
 	elhanyagolható, így az összes leadott hő:
 	
-	\[ \boxed{\frac{dQ}{dt}=NA(T-T_k)+\epsilon A \sigma(T^4-T_k^4)}\ , \]
+	\[ \boxed{\frac{dQ}{dt}=NA(T-T_k)+\epsilon A \sigma(T^4 + T_k^4)}\ , \]
 
 	\indent ahol $\epsilon$ az emissziós tényező, 
 	esetünkben legyen 0.8 \cite{epsilon}, $\sigma$ a Stefan-Boltzman-állandó, ami 
@@ -138,7 +138,7 @@ szintén megismételhető a kísérlet.}\\
 		\boxed{
 			N \cdot 2\pi r_0l_0 \bigg(\frac{l}{l_0}\bigg)^2 \cdot
 		    \frac{ln\frac{l}{l_0}}{\alpha}
-		    +2\pi r_0l_0 \bigg(\frac{l}{l_0}\bigg)^2 \cdot\epsilon\sigma\left[\Bigg(\frac{ln\frac{l}{l_0}}{\alpha}-T_k\Bigg)^4-T_k^4\right] =I^2R} \ .
+		    +2\pi r_0l_0 \bigg(\frac{l}{l_0}\bigg)^2 \cdot\epsilon\sigma\left[\Bigg(\frac{ln\frac{l}{l_0}}{\alpha}-T_k\Bigg)^4 + T_k^4\right] =I^2R} \ .
 	\]
 	Innen már numerikusan számolható a vezeték megnyúlt hossza.
 
@@ -227,6 +227,7 @@ igazítanunk kellett a $0$-t.
 %-------------------------------------------------------------------------------------------
 \section{Diszkusszió}
 
+
 Az elméleti számolás és a gyakorlat között a nagyobb áramerősségeknél nagy az eltérés. Ez azért lehet, 
 mert sok dolog, pl. a huzal ellenállása kicsit hőmérsékletfüggő, amit konstansnak vettünk, és nagy áramerősségeknél 
 már a vezeték 
@@ -266,11 +267,158 @@ De, mint az \aref{table2} táblázat Különbség oszlopából is látszik, az e
 már elszáll, 
 de a műszer méréshatára $0.7\, A$, és addig az elmélet elfogadhatóan követi a tapasztalatot.
 
+
+%-------------------------------------------------------------------------------------------
+\section{\textbf{Kiegészítés}}
+
+Ennek a kiegészítésnek a célja az, hogy bevezessünk hőre változó hőtágulási együtthatót, 
+és hogy felgöngyölítsük mennyi is az értéke. A $T_k = 300\, K$ mindig.\\
+
+\subsubsection*{Hőfüggő hőtágulási együttható}
+
+Messziről indítunk.
+A \cite{Churchill} forrás azt tágyalja, hogy: ha egy vízszintes henger forróbb a környezeténél, mennyi hőt ad le természetes konvekcióval?\\
+Végül sikerül meghatározni a $Nu$, Nusselt-számot, a $Ra$: Rayleigh-, és $Pr$: Prandtl-számmal. [ \cite{Churchill} eq. (6) ]
+
+\begin{equation}
+	Nu = 0.36 + 0.518 \left( \frac{Ra}{[1+(0.559/Pr)^{9/16}\, ]^{16/9}} \right)^{n}, \quad \mathrm{ahol}\ n=1/4
+	\label{NU-def}
+\end{equation}
+
+\noindent $n$ konvenció szerint $1/4$, de nekünk ez egy kicsit más lesz.\\
+\indent Közelítsük $Nu$-t mint:
+
+\[
+Nu = C \cdot Ra^n,\quad C = const
+\]
+
+A Rayleigh-szám definíciója \cite{Rayleigh}:
+
+\begin{equation*}
+	Ra = \frac{g\beta\, \Delta T\, D^3}{\nu \alpha}, \quad \mathrm{ahol}\ \Delta T = T-T_k,
+\end{equation*}
+
+és ahol $g$ a gravitáció, $\beta = 1/T_k$ a térfogati hőátadási együttható (id. gáz), $D$ a szál átmérője, $\nu$ a kinematikai viszkozitás
+és $\alpha$ a hőmérséklet-diffuzivitás.\\
+Behlyettesytve $\beta$-t:
+
+\begin{equation*}
+	Ra = \frac{g\, \Delta T\, D^3}{\nu \alpha T_k} \varpropto \frac{\Delta T}{T_k}
+\end{equation*}
+
+\noindent Már jó úton haladunk.\\
+\indent Nussel-szám definíciója \cite{Nussel-def}, \cite{Nussel-def-wiki}:
+
+\[
+Nu = \frac{\mathcal{N} D}{k}
+\]
+
+Ahol a félreértések elkerülése végett bevezetem $\mathcal{N}$ mint a hőátadási együttható, $k$ pedig a 
+levegő hővezetési tényezője.\\
+
+Átrendezve $\mathcal{N} = k/D \cdot Nu$, majd ebbe behelyettesítjük a $Nu$ képletét:
+
+\[
+\mathcal{N}(T) = \frac{k}{D} C \left(\frac{\Delta T}{T_k}\right)^n = N \cdot \left(\frac{T-T_k}{T_k}\right)^n
+\]
+
+Ahol $N$ az összes eddigi konstant tömörírő konstans.\\
+Ezt már vissza is lehetne helyettesíteni a Newton lehűlési törvénybe de ne szaladjunk annyira előre. Mint említettem
+$n = 1/4$ egy konvenció. Mennyi a mi esetünkben?\\
+
+Mivel $\mathcal{N}(T) \thicksim Nu \thicksim Ra^n$, ezért a Rayleigh-szám megbecslésével meg tudjuk 
+becsülni $\mathcal{N}(T)$-t. (Illetve kis vezetékekre \cite{Churchill} eq. (6), ha $Ra < 10^{-6}$ nem működik. 
+[\ \cite{Churchill} Conclusion point 3.\ ])
+
+\subsection*{Rayleigh-szám becslése}
+
+Csak nagyságrendileg becslünk, a $T_{film} = (T_{sz\acute{a}l}+T_k)/2$, film hőmérsékleten olvastam le az adatokat
+Churchill-Chu \cite{Churchill} tanácsára. $\alpha$ és $\nu$ adatok a \cite{heat_and_mass} 941. oldaláról olvastam le.\footnote{Illetve $325\, K$-nél átlegoltam.}
+
+\subsubsection*{$\Delta T = 50$:}
+
+\begin{itemize}
+	\item $\alpha = 26.2 \cdot 10^{-6} m^2/s$
+	\item $\nu = 18.405 \cdot 10^{-6} m^2/s$
+	\item $T_f = \frac{(300+50) + 300}{2}\, K = 325\, K$
+\end{itemize}
+
+\[
+Ra = \frac{9.81\, \Delta T\, 0.0002^3}{\nu\, \alpha\, T_k} \approx 0.0271
+\]
+
+\subsubsection*{$\Delta T = 500$:}
+
+\begin{itemize}
+	\item $\alpha = 66.7 \cdot 10^{-6} m^2/s$
+	\item $\nu = 45.57 \cdot 10^{-6} m^2/s$
+	\item $T_f = \frac{(300+500) + 300}{2}\, K = 550\, K$
+\end{itemize}
+
+\[
+Ra = \frac{9.81\, \Delta T\, 0.0002^3}{\nu\, \alpha\, T_k} \approx 0.0430
+\]
+\\
+Tehát alig változik, ami azt jelenti, hogy a $Nu$ sem fog sokat változni, így közelíthetjük, mint egy konstant.
+Azaz $n \approx 0$, tehát $\mathcal{N} = N$. Ami azt is jelenti, hogy mivel $\nu$ és $\alpha$ is függenek $T$-től, 
+pont kompenzálják a $\Delta T$ növekedését.\\
+
+De ez nem segít megmondani, hogy mennyi $N$. Hát ne álljunk meg itt, már közel járunk a végéhez.
+
+\subsubsection*{Új $N$ meghatározása}
+
+Tehát mindössze annyit kell tegyünk, hogy a most kiszámolt Rayleigh-számok miatt legyen $n=0$, felhasználjuk, hogy \\
+$Nu = 0.36+0.518 = 0.878$ egyenletet $n=0$ határesetben majd megbecsüljük $\mathcal{N}$-t , azaz $N$-t.\\
+Ehhez \aref{NU-def} egyenletet fogjuk használni az ($n = 0$), majd leolvassuk a $k$ adatokat ugyanonnan, ugyanúgy,
+ahonnan $\alpha$ és $\nu$-t, \cite{heat_and_mass} 941.
+
+\subsubsection*{$\Delta T = 50$:}
+ $\quad T_f = 325\, K$
+\begin{itemize}
+	\item $k = 28.15 \cdot 10^{-3}\ W/mK$
+\end{itemize}
+
+\[
+N = \frac{k}{D} \cdot Nu = \frac{k}{0.0002} \cdot 0.878 = 123.5785\ W/m^2K
+\]
+
+\subsubsection*{$\Delta T = 500$:}
+ $\quad T_f = 550\, K$
+\begin{itemize}
+	\item $k = 43.9 \cdot 10^{-3}\ W/mK$
+\end{itemize}
+
+\[
+N = \frac{k}{D} \cdot Nu = \frac{k}{0.0002} \cdot 0.878 = 192.721\ W/m^2K
+\]
+\\
+A tervem az hogy veszek egy konstans $N$-t, egy kis hőmérséklet és egy nagy hőmérséklet átlagából. Mivel mi a huzalt,
+közel izzásig hevítettük, ezért jobb becslés a $\Delta T = 800\, K$, ekkor: $N = 230.036\ W/m^2K$\footnote{$\quad T_f = 700\, K$, és $k = 52.4 \cdot 10^{-3}\ W/mK$}\\
+Átlaguk:
+\[
+N_{\acute{a}tl} = \frac{N_{50} + N_{800}}{2} = 176.80725\ W/m^2K \approx 176.81\ W/m^2K
+\]
+
+\subsection*{Kisdiszkusszió}
+
+Tehát sikerült egy új becslést adni $N$-re. Amit nem mondtam el és emeltem ki a levezetésben, hogy $\nu$, $\alpha$, $k$
+mind hőmérséklet függő, ezen múlik az egész. Ezért kell leolvani az adatokat \cite{heat_and_mass}-ból. Csak ezt a 
+váltást, konstansról, hőmérsklet függésre nem emeltem ki a levezetés közben. Tehát $N$ hőmérsékletfüggő, lenne, az 
+előbb említett paraméterek miatt, viszont most vettünk egy  átlagot, és azt tettük az új konstansnak. Ami majd, 
+mint később látszódni fog, nagyon jól fog jönni nekünk.\footnote{$35$-ről $176$-ra ugrunk.}
+
+%-------------------------------------------------------------------------------------------
+
 \begin{thebibliography}{99}
 \bibitem{Terv} \href{https://link.springer.com/chapter/10.1007/978-3-030-02291-4_2}{Terv képe innen van}.
 \bibitem{epsilon} \href{https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html}{Nikróm emissziós tényezője innen van}.
 \bibitem{R-T} \href{https://wiretron.com/nichrome-resistance-informational-charts/}{Innen van a Nikróm ellenállásának változása hőmérséklet-változásra}
-
+\bibitem{Churchill} \href{https://sci-hub.red/10.1016/0017-9310(75)90222-7}{S. W. Churchill and H. H. S. Chu, International Journal of Heat and Mass Transfer 18, 1049 (1975).}
+\bibitem{Rayleigh} \href{https://charlaenlamesadelcasino.wordpress.com/wp-content/uploads/2014/01/fundamentals-of-heat-and-mass-transfer-incropera.pdf}{Rayleigh szám definíciója az 569. oldalról.}
+\bibitem{Nussel-def} \href{https://www.sciencedirect.com/topics/engineering/nusselt-number}{Nussel-szám definíciója itt található}
+\bibitem{Nussel-def-wiki} \href{https://en.wikipedia.org/wiki/Nusselt_number}{De a Nussel-szám megtalálható Wikipédián is.}
+\bibitem{heat_and_mass} \href{https://charlaenlamesadelcasino.wordpress.com/wp-content/uploads/2014/01/fundamentals-of-heat-and-mass-transfer-incropera.pdf}{Fundamentals of
+Heat and Mass Transfer könyv}
 
 \end{thebibliography}
 \end{document}

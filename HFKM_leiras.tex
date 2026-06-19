@@ -99,10 +99,7 @@ szintén megismételhető a kísérlet.}\\
 %-------------------------------------------------------------------------------------------
 \section{Mérőeszköz elmélete}
 
-Mivel a projekt már egyszer le lett adva, így most kiegészítés és javítás miatt adjuk be újra, ezért itt meg fog 
-maradni a régi elmélet, illetve beadási határidő előtt pár órával vettük észre, hogy ez az elmélet is el van írva,
-és nem maradt idő teljesen újra kiértékelni az eredményeket. Ezért a \textqq{hibás}, túl sokat általánosító régi elmélet
-is az új kóddal, lesz optimalizálva, de a régi paraméterekkel.
+Mivel a projekt már egyszer le lett adva, így most kiegészítés és javítás miatt adjuk be újra.
 
 \subsection{A vezeték megnyúlása}
 	A vezeték kétféleképpen is lead hőt. A hőátadásra a Newton-féle lehűlési törvényt alkalmazzuk 
@@ -122,7 +119,7 @@ is az új kóddal, lesz optimalizálva, de a régi paraméterekkel.
 	\indent ahol $\epsilon$ az emissziós tényező, 
 	esetünkben legyen 0.8 \cite{epsilon}, $\sigma$ a Stefan-Boltzman-állandó, ami 
 	$5.67^{-8} \frac{W}{m^2 K^4}$. $N$ eléggé függ a mérési viszonyoktól és a vezeték alakjától, 
-	de most közelítve legyen konstans $35 \frac{W}{m^2 K}$. A felvett hő a Joule hőből származik, ami 
+	így meghatározására kásőbb kerül sor. A felvett hő a Joule hőből származik, ami 
 	$\frac{dQ}{dt}=I^2 \cdot R$, ahol $I$ a vezetéken átfolyó áram, $R$ a vezeték ellenállása. Bár az 
 	ellenállás értéke is függ a hőmérséklettől, a nikróm ellenállása magas hőmérsékleten is csak kicsit 
 	változik \cite{R-T}, ezért legyen a továbbiakban konstans.\\ 
@@ -177,138 +174,12 @@ A magasság a $c$ oldalt két részre osztja, legyen a $b$ oldali rész $c_b=b\c
 
 \indent ahol $\Delta m=m'-m$, $d$ a csiga átmérője, $\phi$ a csiga szögelfordulása.
 
-\subsection{A program}
-
-Ez, még tartalmazza az elírást, de bent hagyom.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.44]{Pictures/szabi_kod_javitott.jpg}
-	\caption{Az eredményeket számláló numerikus program}
-	\label{old_program}
-\end{figure}
-
-%-------------------------------------------------------------------------------------------
-\section{Mérési adatok, kiértékelés}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|c|c|c|}
-		\hline
-		Param & Eredeti & Hibahatár \\ \hline
-		$a$   & $9.3\, cm$ & $\pm 1\, mm$ \\ \hline
-		$b$   & $9.2\, cm$ & $\pm 1\, mm$ \\ \hline
-		$c$   & $17.5\, cm$ & $\pm 0.5\, cm$ \\ \hline
-		$r_0$ & $0.1\, mm$ & $\pm 0.02\, mm$\\ 
-		\hline
-	\end{tabular}
-	\caption{A kezdeti paraméterek hibahatára a régi elmélethez}
-	\label{tab:err_margin_old}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|c|l|r|l|}
-	\hline
-	Param & Eredeti [$m$] &   Optimalizált [$m$] & Változás [$m$]\\ \hline
-  	$a$ [cm] & 9.3  & 9.2     & $\Delta$ = -0.1     \\ \hline
-  	$b$ [cm] & 9.2  & 9.14486 & $\Delta$ = -0.05514 \\ \hline
-  	$c$ [cm] & 17.5 & 18      & $\Delta$ = +0.5     \\ \hline
-  	$r_0$ [mm] & 0.1 & 0.12   & $\Delta$ = +0.02     \\ \hline
-	$d$ [mm] & 1.05 & N\textbackslash A & $\Delta$ = N\textbackslash A\\ \hline
-	$R$ [$\Omega$] & 10.08 & N\textbackslash A & $\Delta$ = N\textbackslash A\\ \hline
-	\end{tabular}
-	\caption{A paraméterek változása a régi elmélettel}
-\end{table}
-
-Azok a paraméterek ahol N\textbackslash A található, nem változtak.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.7]{Pictures/refined_plot_of_data_old_formula.png}
-	\caption{A mért, és számolt adatok optimalizálva}
-	\label{fig:plot_old}
-\end{figure}
-
-\Aref{fig:plot_old} ábrán a \textqq{base model} a kezdeti paraméterek által adott görbe.
-
-\footnotetext[2]{{\Aref{tab:results_old} táblázat különbség oszlopa az Átlag és a Számolt szögelfordulást veti össze.}}
-
-\begin{table}[H]
-\centering
-	\begin{tabular}{|c|ccc|c|c|c|}
-		\hline
-		Áramerősség [A] & \multicolumn{3}{c|}{Mért szögelfordulás [°]} & Átlag [°] & Számolt szögelfordulás [°] & Különbségek [°] \\ \hline
-		0.06 & \multicolumn{1}{c|}{7}   & \multicolumn{1}{c|}{5}   & 6   & 6      &   4.810 &   1.190 \\ \hline
-		0.13 & \multicolumn{1}{c|}{15}  & \multicolumn{1}{c|}{15}  & 16  & 15.33  &  22.149 &  -6.819 \\ \hline
-		0.18 & \multicolumn{1}{c|}{31}  & \multicolumn{1}{c|}{30}  & 21  & 27.33  &  41.493 & -14.163 \\ \hline
-		0.27 & \multicolumn{1}{c|}{72}  & \multicolumn{1}{c|}{68}  & 65  & 68.33  &  87.685 & -19.355 \\ \hline
-		0.3  & \multicolumn{1}{c|}{75}  & \multicolumn{1}{c|}{71}  & 75  & 73.67  & 105.379 & -31.709 \\ \hline
-		0.42 & \multicolumn{1}{c|}{142} & \multicolumn{1}{c|}{144} & 150 & 145.33 & 180.786 & -35.456 \\ \hline
-		0.57 & \multicolumn{1}{c|}{240} & \multicolumn{1}{c|}{247} & 241 & 242.67 & 272.437 & -29.767 \\ \hline
-		0.71 & \multicolumn{1}{c|}{362} & \multicolumn{1}{c|}{360} & 365 & 362.33 & 348.278 &  14.052 \\ \hline
-		0.84 & \multicolumn{1}{c|}{458} & \multicolumn{1}{c|}{450} & 452 & 453.33 & 410.249 &  43.081 \\ \hline
-	\end{tabular}
-	\caption{A kimért szögelfordulások az áramerősség függvényében, és a hozzá számolt értékek az elméletből.}
-	\label{tab:results_old}
-\end{table}
-
-Mérés közben azt tapasztaltuk, hogy a választott $0$ ponttól indulva $\Delta \phi$ kitérés konzisztens, azaz adott áramerősséghez ugyanolyan szögelfordulásokat kaptunk többszöri mérés során is, viszont 
-kikapcsolás után a mutató nem tér vissza pontosan a $0$ pontba. Ezért minden egyes áramerősség értéknél, 
-igazítanunk kellett a $0$-t.
-
-%-------------------------------------------------------------------------------------------
-\section{Diszkusszió}
-
-\Aref{tab:results_old} táblázatból látszik, hogy az elmélet, legjobb esetben is csak kis kitérésekre 
-követi, a tapasztalatot. Utána szétnyílik, majd megint közel kerülnek egymáshoz mikor a modell metszi
-az adatokra illeszetett görbét. Az eltérés jelentős, ennek oka az is hogy a csiga sugara nagyon kicsi.
-Viszont mint az az ábrából is látszik, itt, nagyobbak a problémák, mert a függvény alakja sem egyezik.
-Az optimalitált görbe, úgy nagyjából követi a tapasztalatot, viszont az optimalizálatlan görbe nagyon 
-jelentősen eltér a tapasztalattól.
-
-\subsection{Az eltérés okai}
-
-A huzal ellenállása (Nikrómra) kis mértékben hőmérsékletfüggő, amit konstansnak vettünk. És a hőmérséklet 
-nagymértékben nő $0.84\, A$ felé közeledve, mert közel izzásig mentünk.\\
-\indent Továbbá a gumi általi húzóerejének 
-változását nem vettük figyelembe, ami a vezeték nagyobb megnyúlásánál egyre kisebb lesz, így kevésbé húzza 
-ki azt. És mivel csiga sugara kicsi, így kis abszolút hiba is nagy relatív hibát eredményezhet.\\
-\indent Még pontatlanságot okozhat az, hogy a vezeték nem élesen törik meg, mint egy háromszögnél, hanem hajlik. Amit 
-elhanyagoltunk. Ezen kívül fellép a holtjáték jelensége a csigán fellépő súrlódás miatt. És ez lehet a 
-magyarázata annak amit tapasztaltunk mérés közben, azaz hogy minden alkalommal újra kellett kalibrálnunk 
-a 0 viszonyítási pontot.\smallskip 
-
-És talán a legnagyobb feltételezés, és utólag tényleg legjelentősebb tag az az $N$ hőátadási együttható, 
-konstans $35 \frac{W}{m^2 K}$-nak vétele.\medskip
-
-Ezek kiküszöböléséhez, bonyolultabb elméleti modell kidolgozása szükséges, ezt a Kiegészítésben meg is tesszük.
-
-\subsection{Méréshatár}
-
-A műszer teljes méréshatára egy körbefordulás, ami nagyjából $0.7\, A$, hogyha ezen túl megyünk akkor a műszer 
-mutatója körbefordul, így nem lesz egyértelmű, az hogy hova mutat (pl.: $0.8\, A$-re, vagy $0.3\, A$-ra). Ezen
-kívül méréshatárt képez a is, hogy valamennyivel $0.84\, A$ fölött a szál elkezd izzani, és el is pattanhat.
-
-\subsection{Pontosság}
-
-\subsubsection*{Műszer pontossága}
-A műszerrel lehet néhány század ampert mérni, mint az \aref{tab:results_old} táblázatból is látszik, és nagyjából, 
-kis áramerősségeknél lineárisan. Viszont nagy kitérésekél, már nem lineáris a kitérés, és a hiba sem. Nagy 
-áramerősségeknél nagyobb lesz a hiba, és a holtjáték is. Például $360^\circ$-nál tovább azért sem érdemes menni
-mert a műszer olyan gyorsan tér ki, hogy $0.84\, A$-nél, $\approx20^\circ$-kal többet is mutat eleinte, majd egy kis idő 
-elteltével visszamegy $20^\circ$-t, ahogy beáll az egyen súlyi állapot. Így jön ki \aref{tab:results_old} táblázatban
-látható $360^\circ+90^\circ \approx 450^\circ$.
-
-
-%-------------------------------------------------------------------------------------------
-\section{\textbf{Kiegészítés}}
-
-Ennek a kiegészítésnek a célja az, hogy bevezessünk hőre változó hőátadási együtthatót, 
-és hogy felgöngyölítsük mennyi is az értéke. A $T_k = 300\, K$ mindig.\\
 
 %-------------------------------------------------------------------------------------------
 \subsection{Hőfüggő hőátadási együttható}
+
+Ennek a kiegészítésnek a célja az, hogy bevezessünk hőre változó hőátadási együtthatót, 
+és hogy felgöngyölítsük mennyi is az értéke. A $T_k = 300\, K$ mindig.\\
 
 Messziről indítunk.
 A \cite{Churchill} forrás azt tárgyalja, hogy: ha egy vízszintes henger forróbb a környezeténél, mennyi hőt ad le természetes konvekcióval?\\
@@ -318,13 +189,6 @@ Végül sikerül meghatározni a $Nu$, Nusselt-számot, a $Ra$: Rayleigh-, és $
 	Nu = 0.36 + 0.518 \left( \frac{Ra}{[1+(0.559/Pr)^{9/16}\, ]^{16/9}} \right)^{n}, \quad \mathrm{ahol}\ n=1/4
 	\label{NU-def}
 \end{equation}
-
-\noindent $n$ konvenció szerint $1/4$, de nekünk ez egy kicsit más lesz.\\
-\indent Közelítsük $Nu$-t mint:
-
-\[
-Nu = 0.36 + C \cdot Ra^n,\quad C = const
-\]
 
 A Rayleigh-szám definíciója \cite{Rayleigh}:
 
@@ -340,10 +204,6 @@ Behelyettesítve $\beta$-t:
 	Ra = \frac{g\, \Delta T\, D^3}{\nu\, \alpha\, T_k} \varpropto \frac{\Delta T}{T_k}
 \end{equation*}
 
-\begin{equation*}
-	Ra = K \frac{\Delta T}{T_k}
-\end{equation*}
-
 \noindent Már jó úton haladunk.\\
 \indent Nusselt-szám definíciója \cite{Nusselt-def}, \cite{Nusselt-def-wiki}:
 
@@ -353,22 +213,10 @@ Nu = \frac{N D}{k}
 
 Ahol $N$ a hőátadási együttható, $k$ pedig a levegő hővezetési tényezője.\\
 
-Átrendezve $N = k/D \cdot Nu$, majd ebbe behelyettesítjük a $Nu$ képletét:
 
-\begin{equation}
-	N(T) = \frac{k}{D} \left[0.36 + C K^n \left(\frac{\Delta T}{T_k}\right)^n\right] = 
-	\frac{k}{D}0.36 + \mathcal{N} \cdot \left(\frac{T-T_k}{T_k}\right)^n
-	\label{Cal_N(T)}
-\end{equation}
-
-
-Ahol $\mathcal{N}$ az összes eddigi konstant tömörírő konstans.\\
-Ezt már vissza is lehetne helyettesíteni a Newton lehűlési törvénybe de ne szaladjunk annyira előre. Mint említettem
-$n = 1/4$ egy konvenció. Mennyi a mi esetünkben?\\
-
-Mivel $N(T) \thicksim Nu \thicksim Ra^n$, ezért a Rayleigh-szám megbecslésével meg tudjuk 
-becsülni $N(T)$-t. (Illetve kis vezetékekre \cite{Churchill} eq. (6), ha $Ra < 10^{-6}$ nem működik. 
-[\ \cite{Churchill} Conclusion point 3.\ ])
+Mivel $N(T) \thicksim Nu \thicksim Ra^n$, ezért a Rayleigh-szám megbecslésével majd abból a Nusselt-szám 
+meghatározásával meg tudjuk becsülni $N(T)$-t. (Illetve kis vezetékekre \cite{Churchill} eq. (6), 
+ha $Ra < 10^{-6}$ nem működik. [\ \cite{Churchill} Conclusion point 3.\ ])
 
 
 %-------------------------------------------------------------------------------------------
@@ -402,19 +250,35 @@ Ra = \frac{9.81\, \Delta T\, 0.0002^3}{\nu\, \alpha\, T_k} \approx 0.0271
 Ra = \frac{9.81\, \Delta T\, 0.0002^3}{\nu\, \alpha\, T_k} \approx 0.0430
 \]
 \\
-Tehát, mivel $Ra$ kicsi, ezért $n<1/4$, mert ahogy $Ra \to 0$ úgy $n \to 0$ \cite{Churchill}, 
-ezért $Ra^n$ alig változik, ami azt jelenti, hogy a $Nu$ sem fog sokat változni, így közelíthetjük, 
-mint egy konstant. Azaz $n \approx 0$, tehát $N = k/D \cdot 0.36 + \mathcal{N}$. Ami azt is jelenti, hogy mivel 
-$\nu$ és $\alpha$ is függenek $T$-től, pont kompenzálják a $\Delta T$ növekedését.\\
+Tehát, mivel $Ra$ kicsi, ezért $Ra^n$ alig változik, mert ahogy $Ra \to 0$ úgy $n \to 0$ \cite{Churchill}, 
+ ami azt jelenti, hogy a $Nu$ sem fog sokat változni, így közelíthetjük, 
+mint egy konstant. Ami azt is jelenti, hogy mivel $\nu$ és $\alpha$ is függenek $T$-től, pont 
+kompenzálják a $\Delta T$ növekedését.\\
 
-De ez nem segít megmondani, hogy mennyi $N$. Hát ne álljunk meg itt, már közel járunk a végéhez.
+
 %-------------------------------------------------------------------------------------------
 
-\subsection{Új $N$ meghatározása}
+\subsection{$Nu$ kiszámítása}
 
-Tehát mindössze annyit kell tegyünk, hogy a most kiszámolt Rayleigh-számok miatt legyen $n=0$, felhasználjuk, hogy \\
-$Nu = 0.36+0.518 = 0.878$ egyenletet $n=0$ határesetben majd megbecsüljük $\mathcal{N}$-t , azaz $N$-t.\\
-Ehhez \aref{NU-def} egyenletet fogjuk használni ($n = 0$), majd leolvassuk a $k$ adatokat ugyanonnan, ugyanúgy,
+Most számítsuk ki $Nu$-t, a \aref{NU-def} egyenletbe való belyettetítéssel.
+
+$$Nu(\Delta T = 50) \approx 0.519 $$
+
+$$Nu(\Delta T = 500) \approx 0.538 $$
+
+Innen is látszik hogy $Nu$ a mi tartományunkon nagyjából konstans.\\
+Így átlagot vonva:
+
+$$\boxed{Nu \approx 0.528} $$
+
+Innen az új $N$ meghatározásához a pontos $Nu$ adatokkal fogunk dolgozni, amit ide kerekítve írtam le.
+
+
+\subsection{$N$ meghatározása}
+
+Tehát mindössze annyit kell tegyünk, hogy a most kiszámolt átlagos Nusselt-szám behelyettesítésével, meghatározzuk
+$N$-t.\\
+Ehhez \aref{NU-def} egyenletet fogjuk használni, majd leolvassuk a $k$ adatokat ugyanonnan, ugyanúgy,
 ahonnan $\alpha$ és $\nu$-t, \cite{heat_and_mass} 941.
 
 \subsubsection*{$\Delta T = 50$:}
@@ -424,7 +288,7 @@ ahonnan $\alpha$ és $\nu$-t, \cite{heat_and_mass} 941.
 \end{itemize}
 
 \[
-N = \frac{k}{D} \cdot Nu = \frac{k}{0.0002} \cdot 0.878 = 123.5785\ W/m^2K
+N = \frac{k}{D} \cdot Nu \approx 74.38\ W/m^2K
 \]
 
 \subsubsection*{$\Delta T = 500$:}
@@ -434,14 +298,14 @@ N = \frac{k}{D} \cdot Nu = \frac{k}{0.0002} \cdot 0.878 = 123.5785\ W/m^2K
 \end{itemize}
 
 \[
-N = \frac{k}{D} \cdot Nu = \frac{k}{0.0002} \cdot 0.878 = 192.721\ W/m^2K
+N = \frac{k}{D} \cdot Nu \approx 116\ W/m^2K
 \]
 \\
 A tervem az hogy veszek egy konstans $N$-t, egy kis hőmérséklet és egy nagy hőmérséklet átlagából. Mivel mi a huzalt,
-közel izzásig hevítettük, ezért jobb becslés a $\Delta T = 800\, K$, ekkor: $N = 230.036\ W/m^2K$\footnote{$\quad T_f = 700\, K$, és $k = 52.4 \cdot 10^{-3}\ W/mK$}\\
+közel izzásig hevítettük, ezért jobb becslés a $\Delta T = 800\, K$, ekkor: $N \approx 138.46\ W/m^2K$\footnote{$\quad T_f = 700\, K$, és $k = 52.4 \cdot 10^{-3}\ W/mK$}\\
 Átlaguk:
 \[
-N_{\acute{a}tl} = \frac{N_{50} + N_{800}}{2} = 176.80725\ W/m^2K \approx 176.81\ W/m^2K
+N_{\acute{a}tl} = \frac{N_{50} + N_{800}}{2} = 106.4175087\ W/m^2K \approx 106.41\ W/m^2K
 \]
 %-------------------------------------------------------------------------------------------
 
@@ -459,14 +323,15 @@ mint később látszódni fog, nagyon jól fog jönni nekünk.\footnote{$35$-rő
 A régi elméletünk elég rozoga lábakon mozgott, $1\, mm$ változás a rossz irányba fel tudta dobni a görbét úgy ahogy 
 van $1200$-al felfele. Ezért még akkor elkezdtem ezt a programot csinálni, hogy hibahatáron belül\footnote{Ezek álátalában $a, b, c$ oldalak $\pm 1\, mm$}
 , tudjunk optimalizálni bizonyos paramétereket. Így valami elfogadhatót produkálva. Most ezt a kódot egészítettem ki az
-új elmélettel, és fel van készítve, hogy \aref{Cal_N(T)} egyenletet akár $n \neq 0$ esetben is kezelje.\\
+új elmélettel, és fel van készítve, hogy $N(T)$ értékét akár tetszőleges $n$ esetben is kezelje. De, mivel 
+átlagolással állapítottunk meg egy új konstanst, ezért ezt a funkciót nem használjuk.\\
 Az eredmény az, hogy kényelmes módon lehet \textqq{szórakozni} különböző paraméterekkel. Az új elmélet sem feltétlen a 
 legstabilabb, szintén érzékeny a mért hosszra, de legalább már maxumim pár száz fokot tér el.\\
 A program és az eredmények teljes listája megtalálható itt: \cite{git}
 
 \subsubsection*{A program működése dióhéjban}
 
-\Aref{old_program} ábrán látható programnál jóval hosszabb, és egy kicsit átalakítva alkalmazza az elméletet\footnote{Az elmélet nem változott, csak a képletek lehetnek más alakban felírva}
+A régi progrmannál jóval hosszabb, és egy kicsit átalakítva alkalmazza az elméletet\footnote{Az elmélet nem változott, csak a képletek lehetnek más alakban felírva}
 . Nem kell manuálisan egyenként megkapni az eredményeket mert végigmegy rajtuk automatikusan. Mivel az áramerősség 
 értékek ismertek, és $R=const$ ezért lehet $0$-ra optimalizálni \aref{eq:main_expanded} egyenletet, amire a \textsf{brentq} 
 függvénynél nincs jobb.\smallskip
@@ -481,9 +346,9 @@ célpontfüggvénytől való eltérést. Ahol a célpontfüggvény a mért adato
 Majd ábrázlja a kapott eredményt és részletesen konzolra írja a paramétereket és eredményeket.
 %-------------------------------------------------------------------------------------------
 
-\subsection{Az új eredmények}
+\section{Az új eredmények}
 
-\subsubsection{Az új kezdeti paraméterek}
+\subsection{Az új kezdeti paraméterek}
 
 Én \aref{geometria} ábrán látható $a$ és $b$, valamint $c$ oldalt újra lemértem egy pontosabb és biztosabb módszerrel.
 
@@ -518,7 +383,7 @@ $2\, mm$-el van a $b$ oldal fele eltolva. Innen a $b$ és $a$ oldal:
 $$a = \sqrt{m_0^2 + c_a^2}$$
 $$b = \sqrt{m_0^2 + c_b^2}$$
 
-\subsubsection{Ábra és táblázat}
+\subsection{Ábra és táblázat}
 
 A hibahatár amit a programnak megengedtem:
 \begin{table}[H]
@@ -550,74 +415,46 @@ vezeték, ezért nem lehet bizosan pontosan megmérni.
 \Aref{refined:fig:1} ábrán a \textqq{base model} az a görbe amit az eredeti optimalizálatlan paraméterekkel kapnánk.
 
 \begin{table}[H]
-	\centering
-	\begin{tabular}{|c|c|c|c|}
-	\hline
-		I [A] &    Mért átlag [$^\circ$] &   Model [$^\circ$] & Különbség [$^\circ$]\\ \hline
-	 0.06 &   6.00 &   3.212 &  2.788\\ \hline
-	 0.13 &  15.33 &  14.967 &  0.363\\ \hline
-	 0.18 &  27.33 &  28.452 & -1.122\\ \hline
-	 0.27 &  68.33 &  62.646 &  5.684\\ \hline
-	 0.30 &  73.67 &  76.655 & -2.985\\ \hline
-	 0.42 & 145.33 & 143.871 &  1.459\\ \hline
-	 0.57 & 242.67 & 247.224 & -4.554\\ \hline
-	 0.71 & 362.33 & 354.858 &  7.472\\ \hline
-	 0.84 & 453.33 & 457.623 & -4.293\\ \hline
-	\end{tabular}
-	\caption{Az optimalizált paraméterekből kapott eredmények}
+    \centering
+    \begin{tabular}{|c|ccc|c|c|c|}
+    \hline
+        I [A] &  \multicolumn{3}{c|}{Mért szögelfordulás [°]} &  Mért átlag [$^\circ$] &   Model [$^\circ$] & Különbség [$^\circ$]\\ \hline
+     0.06 & \multicolumn{1}{c|}{7}   & \multicolumn{1}{c|}{5}   & 6   &   6.00 &   3.329 &  2.671  \\ \hline
+     0.13 & \multicolumn{1}{c|}{15}  & \multicolumn{1}{c|}{15}  & 16  &  15.33 &  15.502 & -0.172  \\ \hline
+     0.18 & \multicolumn{1}{c|}{31}  & \multicolumn{1}{c|}{30}  & 21  &  27.33 &  29.445 & -2.115  \\ \hline
+     0.27 & \multicolumn{1}{c|}{72}  & \multicolumn{1}{c|}{68}  & 65  &  68.33 &  64.689 &  3.641  \\ \hline
+     0.30 & \multicolumn{1}{c|}{75}  & \multicolumn{1}{c|}{71}  & 75  &  73.67 &  79.076 & -5.406  \\ \hline
+     0.42 & \multicolumn{1}{c|}{142} & \multicolumn{1}{c|}{144} & 150 & 145.33 & 147.612 & -2.282  \\  \hline
+     0.57 & \multicolumn{1}{c|}{240} & \multicolumn{1}{c|}{247} & 241 & 242.67 & 251.002 & -8.332 \\ \hline
+     0.71 & \multicolumn{1}{c|}{362} & \multicolumn{1}{c|}{360} & 365 & 362.33 & 355.507 &  6.823  \\ \hline
+     0.84 & \multicolumn{1}{c|}{458} & \multicolumn{1}{c|}{450} & 452 & 453.33 & 452.019 &  1.311  \\ \hline
+    \end{tabular}
+    \caption{Az optimalizált paraméterekből kapott eredmények}
+	\label{tab:results_new}
 \end{table}
 
-\subsubsection{Az optimalizált paraméterek}
+\Aref{tab:results_new} táblázat különbség oszlopa az Átlag és a Számolt szögelfordulást veti össze.
 
-Nézzük, hogy le tudunk-e vonni valamilyen következtetést az optimalizált paraméterekből:
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|c|l|r|l|}
-	\hline
-	Param & Eredeti [$m$] &   Optimalizált [$m$] & Változás [$m$]\\ \hline
-  	$a$ &    0.0924392 & 0.0924316 & $\Delta$ = -7.56$\cdot 10^{-6}$  \\ \hline
-  	$b$ &    0.088459  & 0.0884515 & $\Delta$ = -7.563$\cdot 10^{-6}$ \\ \hline
-  	$c$ &    0.18      & 0.180073  & $\Delta$ = +7.299$\cdot 10^{-5}$ \\ \hline
-  	$r_0 $ & 0.0001    & 8$\cdot 10^{-5}$     & $\Delta$ = -2$\cdot 10^{-5}$     \\ \hline
-	\end{tabular}
-	\caption{A paraméterek változása}
-	\label{tab:param_delta}
-\end{table}
 
-Alap esetben nem tudnánk sok mindent levonni ezekből az adatokból, viszont most kivételt kell, hogy tegyek
-ugyanis a Nikróm szál vastagságára $0.16\, mm$-volt írva, viszont én $0.20\, mm$-re mértem. De az algoritmus
-vissza akar térni $0.16\, mm$-re, hiszen $r_0$ a huzal kezdeti sugara. Amit hogyha beírunk, és a paramétereket
-változatlanul, optimalizálás nélkül ábrázoljuk a következőt kapjuk:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.8]{Pictures/original_D_plot_of_data2.png}
-	\caption{Eredeti huzal átmérővel, semmit sem változtatva}
-\end{figure}
+\subsection{Az optimalizált paraméterek}
 
 \begin{table}[H]
-	\centering
-	\begin{tabular}{|c|c|c|c|}
-	\hline
-		I [A] &    Mért átlag [$^\circ$] &   Model [$^\circ$] & Különbség [$^\circ$]\\ \hline
-	  0.060 &   6.000 &   3.051 &  2.949\\ \hline
-	  0.130 &  15.330 &  14.228 &  1.102\\ \hline
-	  0.180 &  27.330 &  27.064 &  0.266\\ \hline
-	  0.270 &  68.330 &  59.688 &  8.642\\ \hline
-	  0.300 &  73.670 &  73.082 &  0.588\\ \hline
-	  0.420 & 145.330 & 137.560 &  7.770\\ \hline
-	  0.570 & 242.670 & 237.279 &  5.391\\ \hline
-	  0.710 & 362.330 & 341.723 & 20.607\\ \hline
-	  0.840 & 453.330 & 441.888 & 11.442\\ \hline
-	\end{tabular}
-	\caption{Eredeti huzal átmérővel kapott eredmények}
+    \centering
+    \begin{tabular}{|c|l|r|l|}
+    \hline
+    Param & Eredeti [$m$] &   Optimalizált [$m$] & Változás [$m$]\\ \hline
+      $a$ &    0.0924392 &  0.0929392  & $\Delta$ = +0.0005  \\ \hline
+      $b$ &    0.088459  &  0.088959   & $\Delta$ = +0.0005 \\ \hline
+      $c$ &    0.18      &  0.180997   & $\Delta$ = +0.000997 \\ \hline
+      $r_0 $ & 0.0001    &  0.00012    & $\Delta$ = +2$\cdot 10^{-6}$ \\ \hline
+    \end{tabular}
+    \caption{A paraméterek változása}
+    \label{tab:param_delta}
 \end{table}
 
-Kicsit rosszabbak az eredmények, viszont – mint az \aref{tab:param_delta} táblázatból is látszik – nagyon kis 
-változtatásokkal, újra pontos eredményeket tudnánk kapni.
 %-------------------------------------------------------------------------------------------
 
-\subsection*{Diszkusszió II}
+\section{Diszkusszió}
 
 Mint az a fenti eredményekből is látszik az elméletünk pontossága, még mindig hibahatáron belüli változtatásokon 
 múlik, viszont ami lényeges eredmény, hogy legalább \textqq{jó alakú} a függvény. A pontosság bizonytalanságára,
@@ -626,6 +463,34 @@ teljes visszaigazolásához, akkor egy nagyobb műszert kell építeni, hosszabb
 valamennyivel vastagabb csigasugárral, és megfelelő rögzítéssel, a csigának rendesen csapágyak közé kellene fogva lennie,
 nem csak \textqq{lógnia}. Ezen kívül ha hosszabb a műszer, akkor a gumit is lehetne belül rögzíteni így minimalizálva
 azt, hogy a gumi a kivezetésnél $90^\circ$-os fordulatot tesz, így valószínüleg növelve a hiszterézis jelenségét.
+
+\subsection{Az eltérés okai}
+
+A huzal ellenállása (Nikrómra) kis mértékben hőmérsékletfüggő, amit konstansnak vettünk. És a hőmérséklet 
+nagymértékben nő $0.84\, A$ felé közeledve, mert közel izzásig mentünk.\\
+\indent Továbbá a gumi általi húzóerejének 
+változását nem vettük figyelembe, ami a vezeték nagyobb megnyúlásánál egyre kisebb lesz, így kevésbé húzza 
+ki azt. És mivel csiga sugara kicsi, így kis abszolút hiba is nagy relatív hibát eredményezhet.\\
+\indent Még pontatlanságot okozhat az, hogy a vezeték nem élesen törik meg, mint egy háromszögnél, hanem hajlik. Amit 
+elhanyagoltunk. Ezen kívül fellép a holtjáték jelensége a csigán fellépő súrlódás miatt. És ez lehet a 
+magyarázata annak amit tapasztaltunk mérés közben, azaz hogy minden alkalommal újra kellett kalibrálnunk 
+a 0 viszonyítási pontot.\smallskip 
+
+\subsection{Méréshatár}
+
+A műszer teljes méréshatára egy körbefordulás, ami nagyjából $0.7\, A$, hogyha ezen túl megyünk akkor a műszer 
+mutatója körbefordul, így nem lesz egyértelmű, az hogy hova mutat (pl.: $0.8\, A$-re, vagy $0.3\, A$-ra). Ezen
+kívül méréshatárt képez a is, hogy valamennyivel $0.84\, A$ fölött a szál elkezd izzani, és el is pattanhat.
+
+\subsection{Pontosság}
+
+\subsubsection*{Műszer pontossága}
+A műszerrel lehet néhány század ampert mérni, mint az \aref{tab:results_new} táblázatból is látszik, és nagyjából, 
+kis áramerősségeknél lineárisan. Viszont nagy kitérésekél, már nem lineáris a kitérés, és a hiba sem. Nagy 
+áramerősségeknél nagyobb lesz a hiba, és a holtjáték is. Például $360^\circ$-nál tovább azért sem érdemes menni
+mert a műszer olyan gyorsan tér ki, hogy $0.84\, A$-nél, $\approx20^\circ$-kal többet is mutat eleinte, majd egy kis idő 
+elteltével visszamegy $20^\circ$-t, ahogy beáll az egyen súlyi állapot. Így jön ki \aref{tab:results_new} táblázatban
+látható $360^\circ+90^\circ \approx 450^\circ$.
 
 \section{Összefoglalás}
 
@@ -651,6 +516,8 @@ elméleti modellünket.
 \bibitem{heat_and_mass} \href{https://charlaenlamesadelcasino.wordpress.com/wp-content/uploads/2014/01/fundamentals-of-heat-and-mass-transfer-incropera.pdf}{Fundamentals of
 Heat and Mass Transfer könyv}
 \bibitem{git} \href{https://github.com/Adam-Gillich/Invent-Yourself}{A projekt Github repository-ja}
+\bibitem{Prandtl} \href{https://www.sciencedirect.com/topics/engineering/prandtl-number}{Prandtl-szám levegőra 0.7}
+
 
 \end{thebibliography}
 \end{document}

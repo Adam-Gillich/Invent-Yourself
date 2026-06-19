@@ -119,7 +119,7 @@ Mivel a projekt már egyszer le lett adva, így most kiegészítés és javítá
 	\indent ahol $\epsilon$ az emissziós tényező, 
 	esetünkben legyen 0.8 \cite{epsilon}, $\sigma$ a Stefan-Boltzman-állandó, ami 
 	$5.67^{-8} \frac{W}{m^2 K^4}$. $N$ eléggé függ a mérési viszonyoktól és a vezeték alakjától, 
-	így meghatározására kásőbb kerül sor. A felvett hő a Joule hőből származik, ami 
+	így meghatározására később kerül sor. A felvett hő a Joule hőből származik, ami
 	$\frac{dQ}{dt}=I^2 \cdot R$, ahol $I$ a vezetéken átfolyó áram, $R$ a vezeték ellenállása. Bár az 
 	ellenállás értéke is függ a hőmérséklettől, a nikróm ellenállása magas hőmérsékleten is csak kicsit 
 	változik \cite{R-T}, ezért legyen a továbbiakban konstans.\\ 
@@ -176,9 +176,9 @@ A magasság a $c$ oldalt két részre osztja, legyen a $b$ oldali rész $c_b=b\c
 
 
 %-------------------------------------------------------------------------------------------
-\subsection{Hőfüggő hőátadási együttható}
+\subsection{Hőmérsékletfüggő hőátadási együttható}
 
-Ennek a kiegészítésnek a célja az, hogy bevezessünk hőre változó hőátadási együtthatót, 
+Ennek a kiegészítésnek a célja az, hogy bevezessünk hőmérséketre változó hőátadási együtthatót, 
 és hogy felgöngyölítsük mennyi is az értéke. A $T_k = 300\, K$ mindig.\\
 
 Messziről indítunk.
@@ -223,8 +223,8 @@ ha $Ra < 10^{-6}$ nem működik. [\ \cite{Churchill} Conclusion point 3.\ ])
 
 \subsection{Rayleigh-szám becslése}
 
-Csak nagyságrendileg becslünk, a $T_{film} = (T_{sz\acute{a}l}+T_k)/2$, film hőmérsékleten olvastam le az adatokat
-Churchill-Chu \cite{Churchill} tanácsára. $\alpha$ és $\nu$ adatok a \cite{heat_and_mass} 941. oldaláról olvastam le.\footnote{Illetve $325\, K$-nél átlegoltam.}
+Csak nagyságrendileg becslünk, a $T_{f} = (T_{sz\acute{a}l}+T_k)/2$, film hőmérsékleten olvastam le az adatokat.
+$\alpha$ és $\nu$ adatok a \cite{heat_and_mass} 941. oldaláról olvastam le.\footnote{Illetve $325\, K$-nél átlegoltam.}
 
 \subsubsection*{$\Delta T = 50$:}
 
@@ -260,7 +260,7 @@ kompenzálják a $\Delta T$ növekedését.\\
 
 \subsection{$Nu$ kiszámítása}
 
-Most számítsuk ki $Nu$-t, a \aref{NU-def} egyenletbe való belyettetítéssel.
+Most számítsuk ki $Nu$-t, a \aref{NU-def} egyenletbe való behelyettesítéssel.
 
 $$Nu(\Delta T = 50) \approx 0.519 $$
 
@@ -278,8 +278,7 @@ Innen az új $N$ meghatározásához a pontos $Nu$ adatokkal fogunk dolgozni, am
 
 Tehát mindössze annyit kell tegyünk, hogy a most kiszámolt átlagos Nusselt-szám behelyettesítésével, meghatározzuk
 $N$-t.\\
-Ehhez \aref{NU-def} egyenletet fogjuk használni, majd leolvassuk a $k$ adatokat ugyanonnan, ugyanúgy,
-ahonnan $\alpha$ és $\nu$-t, \cite{heat_and_mass} 941.
+Leolvassuk a $k$ adatokat ugyanonnan, ugyanúgy, ahonnan $\alpha$ és $\nu$-t, \cite{heat_and_mass} 941.
 
 \subsubsection*{$\Delta T = 50$:}
  $\quad T_f = 325\, K$
@@ -315,26 +314,24 @@ Tehát sikerült egy új becslést adni $N$-re. Amit nem mondtam el és emeltem 
 mind hőmérséklet függő, ezen múlik az egész. Ezért kell leolvani az adatokat \cite{heat_and_mass}-ból. Csak ezt a 
 váltást, konstansról, hőmérséklet függésre nem emeltem ki a levezetés közben. Tehát $N$ hőmérsékletfüggő, lenne, az 
 előbb említett paraméterek miatt, viszont most vettünk egy  átlagot, és azt tettük az új konstansnak. Ami majd, 
-mint később látszódni fog, nagyon jól fog jönni nekünk.\footnote{$35$-ről $176$-ra ugrunk.}
+mint később látszódni fog, nagyon jól fog jönni nekünk.
 %-------------------------------------------------------------------------------------------
 
-\subsection{Az új optimalizáló program}
+\subsection{Az optimalizáló program}
 
-A régi elméletünk elég rozoga lábakon mozgott, $1\, mm$ változás a rossz irányba fel tudta dobni a görbét úgy ahogy 
-van $1200$-al felfele. Ezért még akkor elkezdtem ezt a programot csinálni, hogy hibahatáron belül\footnote{Ezek álátalában $a, b, c$ oldalak $\pm 1\, mm$}
+Azzért kezdte ezt a programot csinálni, hogy hibahatáron belül\footnote{Ezek általában $a, b, c$ oldalak $\pm 1\, mm$}
 , tudjunk optimalizálni bizonyos paramétereket. Így valami elfogadhatót produkálva. Most ezt a kódot egészítettem ki az
 új elmélettel, és fel van készítve, hogy $N(T)$ értékét akár tetszőleges $n$ esetben is kezelje. De, mivel 
 átlagolással állapítottunk meg egy új konstanst, ezért ezt a funkciót nem használjuk.\\
-Az eredmény az, hogy kényelmes módon lehet \textqq{szórakozni} különböző paraméterekkel. Az új elmélet sem feltétlen a 
-legstabilabb, szintén érzékeny a mért hosszra, de legalább már maxumim pár száz fokot tér el.\\
+Az eredmény az, hogy kényelmes módon lehet \textqq{szórakozni} különböző paraméterekkel. Az elmélet sem feltétlen a 
+legstabilabb, szintén érzékeny a mért hosszra, de legalább már maximum pár száz fokot tér el.\\
 A program és az eredmények teljes listája megtalálható itt: \cite{git}
 
 \subsubsection*{A program működése dióhéjban}
 
-A régi progrmannál jóval hosszabb, és egy kicsit átalakítva alkalmazza az elméletet\footnote{Az elmélet nem változott, csak a képletek lehetnek más alakban felírva}
-. Nem kell manuálisan egyenként megkapni az eredményeket mert végigmegy rajtuk automatikusan. Mivel az áramerősség 
-értékek ismertek, és $R=const$ ezért lehet $0$-ra optimalizálni \aref{eq:main_expanded} egyenletet, amire a \textsf{brentq} 
-függvénynél nincs jobb.\smallskip
+Egy kicsit átalakítva alkalmazza az elméletet\footnote{Az elmélet nem változott, csak a képletek lehetnek más 
+alakban felírva}. Mivel az áramerősség értékek ismertek, és $R=const$ ezért lehet $0$-ra optimalizálni 
+\aref{eq:main_expanded} egyenletet, amire a \textsf{brentq} függvénynél nincs jobb.\smallskip
 
 Maga a paraméterek optimalizációja a következő: A program elején meg lehet adni a paramétereknek azt a tartományát 
 ahol optimalizálni akarunk, ez a \textsf{\textless param \textgreater\_ref} mintát követi. Ha például beállítunk
@@ -346,11 +343,11 @@ célpontfüggvénytől való eltérést. Ahol a célpontfüggvény a mért adato
 Majd ábrázlja a kapott eredményt és részletesen konzolra írja a paramétereket és eredményeket.
 %-------------------------------------------------------------------------------------------
 
-\section{Az új eredmények}
+\section{Az eredmények}
 
-\subsection{Az új kezdeti paraméterek}
+\subsection{A kezdeti paraméterek}
 
-Én \aref{geometria} ábrán látható $a$ és $b$, valamint $c$ oldalt újra lemértem egy pontosabb és biztosabb módszerrel.
+Én \aref{geometria} ábrán látható $a$ és $b$, valamint $c$ oldalt lemértem egy pontos módszerrel.
 
 \begin{figure}[H]
 	\centering
@@ -401,9 +398,9 @@ A hibahatár amit a programnak megengedtem:
 	\label{err_margin}
 \end{table}
 
-Így a teljes huzal hosszáta a hibahatár $\pm 1\, mm$, és a $c$ oldalra azért ilyen nagy mert a vezeték egy része 
+Így a teljes huzal hossza a hibahatár $\pm 1\, mm$, és a $c$ oldalra azért ilyen nagy mert a vezeték egy része 
 egyik oldalt benne van a felfüggesztési pontban, a másik oldalon pedig még kilóg az a kábel amihez lett erősítve a 
-vezeték, ezért nem lehet bizosan pontosan megmérni.
+vezeték, ezért nem lehet biztosan pontosan megmérni.
 
 \begin{figure}[H]
 	\centering
@@ -456,7 +453,7 @@ vezeték, ezért nem lehet bizosan pontosan megmérni.
 
 \section{Diszkusszió}
 
-Mint az a fenti eredményekből is látszik az elméletünk pontossága, még mindig hibahatáron belüli változtatásokon 
+Mint az a fenti eredményekből is látszik az elméletünk pontossága, hibahatáron belüli változtatásokon 
 múlik, viszont ami lényeges eredmény, hogy legalább \textqq{jó alakú} a függvény. A pontosság bizonytalanságára,
  ezzel a műszerrel nem látok megoldást. Hogyha pontosabb eredményeket akarunk kapni az elméletünk 
 teljes visszaigazolásához, akkor egy nagyobb műszert kell építeni, hosszabb huzalal, pontosabb dimenziókkal, 
@@ -480,25 +477,24 @@ a 0 viszonyítási pontot.\smallskip
 
 A műszer teljes méréshatára egy körbefordulás, ami nagyjából $0.7\, A$, hogyha ezen túl megyünk akkor a műszer 
 mutatója körbefordul, így nem lesz egyértelmű, az hogy hova mutat (pl.: $0.8\, A$-re, vagy $0.3\, A$-ra). Ezen
-kívül méréshatárt képez a is, hogy valamennyivel $0.84\, A$ fölött a szál elkezd izzani, és el is pattanhat.
+kívül méréshatárt képez az is, hogy valamennyivel $0.84\, A$ fölött a szál elkezd izzani, és el is pattanhat.
 
 \subsection{Pontosság}
 
 \subsubsection*{Műszer pontossága}
 A műszerrel lehet néhány század ampert mérni, mint az \aref{tab:results_new} táblázatból is látszik, és nagyjából, 
-kis áramerősségeknél lineárisan. Viszont nagy kitérésekél, már nem lineáris a kitérés, és a hiba sem. Nagy 
+kis áramerősségeknél lineárisan. Viszont nagy kitéréseknél, már nem lineáris a kitérés, és a hiba sem. Nagy 
 áramerősségeknél nagyobb lesz a hiba, és a holtjáték is. Például $360^\circ$-nál tovább azért sem érdemes menni
 mert a műszer olyan gyorsan tér ki, hogy $0.84\, A$-nél, $\approx20^\circ$-kal többet is mutat eleinte, majd egy kis idő 
-elteltével visszamegy $20^\circ$-t, ahogy beáll az egyen súlyi állapot. Így jön ki \aref{tab:results_new} táblázatban
+elteltével visszamegy $20^\circ$-t, ahogy beáll az egyensúlyi állapot. Így jön ki \aref{tab:results_new} táblázatban
 látható $360^\circ+90^\circ \approx 450^\circ$.
 
 \section{Összefoglalás}
 
-Az elméletünk egészen jó alapokról indult, viszont a hőátadási együtthatót, túlságosan alábecsültük, és nem vettük
-figyelembe a hőmérséklet függését.\\
-\indent Így egy nem kaptunk egyező adatokat a tapasztalattal.\medskip
+Az elméletünk egészen jó alapokról indult, viszont a hőátadási együtthatót, túlságosan alábecsültük, eredetileg,
+hogy ezt kiküszöböljük, beleszámítottuk a hőátadási együttható hőmérséklet függését, ha nem is teljesen, de részben.\\
 
-Az új, pontosított elmélettel viszont sikerült pontos, eredményeket számolnunk, még optimalizáció nélkül is.
+Az új, pontosított elmélettel viszont sikerült pontos eredményeket számolnunk.
 De a régi és az új elmélet is érzékeny a mért kezdeti paraméterekre, ezt egy nagyobb műszer építésével, vagy 
 sokkal nagyobb pontosságú mérési eszközökkel lehetne kiküszöbölni, és teljes mértékben visszaigazolni az 
 elméleti modellünket.

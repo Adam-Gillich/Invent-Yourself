@@ -7,3 +7,6 @@
 ## Név Elmágra:
 
 `projekt_Elmag_Farkas_Gillich_Wang_1_Invent_Yourself.pdf`
+
+## Drive link
+https://drive.google.com/drive/folders/1cpmD_DriZ0bgWz-TffFgnano8ysIlvJ6
